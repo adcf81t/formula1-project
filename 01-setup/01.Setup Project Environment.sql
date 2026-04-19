@@ -13,7 +13,11 @@
 
 -- COMMAND ----------
 
--- MAGIC %fs ls 'abfss://formula1@databrickscourseextdl1.dfs.core.windows.net/landing'
+-- MAGIC %fs ls 'abfss://formula1@dbcourseucexternaldl.dfs.core.windows.net/landing'
+
+-- COMMAND ----------
+
+-- MAGIC %fs ls 'abfss://demo@dbcourseucexternaldl.dfs.core.windows.net/'
 
 -- COMMAND ----------
 
@@ -23,8 +27,8 @@
 -- COMMAND ----------
 
 CREATE EXTERNAL LOCATION IF NOT EXISTS databricks_course_ext_dl1_formula1
-URL 'abfss://formula1@databrickscourseextdl1.dfs.core.windows.net/'
-WITH (STORAGE CREDENTIAL `databricks-course-sc`)
+URL 'abfss://formula1@dbcourseucexternaldl.dfs.core.windows.net/'
+WITH (STORAGE CREDENTIAL `databricks-course-ext-storage-credential`)
 COMMENT 'External location for the formula1 container';
 
 -- COMMAND ----------
@@ -39,7 +43,7 @@ SHOW CATALOGS;
 -- COMMAND ----------
 
 CREATE CATALOG IF NOT EXISTS formula1
-   MANAGED LOCATION 'abfss://formula1@databrickscourseextdl1.dfs.core.windows.net/' 
+   MANAGED LOCATION 'abfss://formula1@dbcourseucexternaldl.dfs.core.windows.net/' 
    COMMENT 'This is the main catalog for the formula1 project' ;
 
 -- COMMAND ----------
@@ -51,11 +55,11 @@ CREATE CATALOG IF NOT EXISTS formula1
 
 CREATE SCHEMA IF NOT EXISTS formula1.landing;
 CREATE SCHEMA IF NOT EXISTS formula1.bronze
-    MANAGED LOCATION 'abfss://formula1@databrickscourseextdl1.dfs.core.windows.net/bronze';
+    MANAGED LOCATION 'abfss://formula1@dbcourseucexternaldl.dfs.core.windows.net/bronze';
 CREATE SCHEMA IF NOT EXISTS formula1.silver
-    MANAGED LOCATION 'abfss://formula1@databrickscourseextdl1.dfs.core.windows.net/silver';
+    MANAGED LOCATION 'abfss://formula1@dbcourseucexternaldl.dfs.core.windows.net/silver';
 CREATE SCHEMA IF NOT EXISTS formula1.gold
-    MANAGED LOCATION 'abfss://formula1@databrickscourseextdl1.dfs.core.windows.net/gold';         
+    MANAGED LOCATION 'abfss://formula1@dbcourseucexternaldl.dfs.core.windows.net/gold';         
 
 -- COMMAND ----------
 
@@ -76,9 +80,9 @@ SHOW SCHEMAS;
 
 -- COMMAND ----------
 
-CREATE EXTERNAL VOLUME formula1.landing.files
-LOCATION 'abfss://formula1@databrickscourseextdl1.dfs.core.windows.net/landing';
+CREATE EXTERNAL VOLUME IF NOT EXISTS formula1.landing.files
+LOCATION 'abfss://formula1@dbcourseucexternaldl.dfs.core.windows.net/landing';
 
 -- COMMAND ----------
 
--- MAGIC %fs ls /Volumes/formula1/landing/files
+-- MAGIC %fs ls /Volumes/formula1/landing/files/

@@ -13,7 +13,7 @@
 -- COMMAND ----------
 
 CREATE SCHEMA IF NOT EXISTS formula1.control
-    MANAGED LOCATION 'abfss://formula1@databrickscourseextdl1.dfs.core.windows.net/control';
+    MANAGED LOCATION 'abfss://formula1@dbcourseucexternaldl.dfs.core.windows.net/control';
 
 -- COMMAND ----------
 
