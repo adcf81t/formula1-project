@@ -11,6 +11,14 @@
 # MAGIC 1. Transform values of columns `circuit_name` and `locality` to Title Case
 # MAGIC 1. Write the transformed data to silver `circuits` table
 # MAGIC
+# MAGIC Below changes are required to implement incremental load processing
+# MAGIC 1. Accept batch_id as a parameter to the notebook
+# MAGIC 2. Process data for only the batch_id being passed in (i.e. filter reading from bronze using the batch_id)
+# MAGIC 3. Add created_timestamp, updated_timestamp and batch_id to the silver table.
+# MAGIC 4. Merge the processed data to the silver table
+# MAGIC - created_timestamp should only be populated at the time of inserting/creating the record. It should not be updated during the merge update.
+# MAGIC - Ensure that we are not overwriting the data in silver table by older bronze data (re-run scenario)
+# MAGIC
 
 # COMMAND ----------
 
@@ -22,6 +30,10 @@
 # COMMAND ----------
 
 # MAGIC %run ../00-common/01.environment-config
+
+# COMMAND ----------
+
+# MAGIC %run ../00-common/03.silver-helpers
 
 # COMMAND ----------
 
@@ -185,7 +197,15 @@ display(circuits_final_df)
 
 # COMMAND ----------
 
+write_to_silver(input_df=circuits_final_df, 
+                target_table=silver_table,
+                merge_condition="t.circuit_id = s.circuit_id",
+                columns_to_update=["circuit_name", "latitude", "longitude", "locality", "country", "ingestion_timestamp", "source_file", "batch_id"])
+
+# COMMAND ----------
+
 display(spark.table(silver_table))
 
 # COMMAND ----------
+
 
