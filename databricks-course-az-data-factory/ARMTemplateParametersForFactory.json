@@ -5,8 +5,17 @@
 		"factoryName": {
 			"value": "databricks-course-az-data-factory"
 		},
+		"linkedservice_formula1dl_storage_accountKey": {
+			"value": ""
+		},
 		"linked_service_databricks_course_ws_properties_typeProperties_existingClusterId": {
 			"value": "0307-041933-d6is0bz0"
+		},
+		"linkedservice_formula1dl_storage_properties_typeProperties_url": {
+			"value": "https://formula1dl4dbcourse.dfs.core.windows.net/"
+		},
+		"trigger_process_formula1_data_properties_pipeline_parameters_p_window_end_date": {
+			"value": "@trigger().outputs.windowEndTime"
 		}
 	}
 }

@@ -7,9 +7,21 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "databricks-course-az-data-factory"
 		},
+		"linkedservice_formula1dl_storage_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'linkedservice_formula1dl_storage'"
+		},
 		"linked_service_databricks_course_ws_properties_typeProperties_existingClusterId": {
 			"type": "string",
 			"defaultValue": "0307-041933-d6is0bz0"
+		},
+		"linkedservice_formula1dl_storage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://formula1dl4dbcourse.dfs.core.windows.net/"
+		},
+		"trigger_process_formula1_data_properties_pipeline_parameters_p_window_end_date": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowEndTime"
 		},
 		"containerUri": {
 			"type": "string",
@@ -38,8 +50,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"linkedservice_formula1dl_storage_accountKey": {
+						"value": "[parameters('linkedservice_formula1dl_storage_accountKey')]"
+					},
 					"linked_service_databricks_course_ws_properties_typeProperties_existingClusterId": {
 						"value": "[parameters('linked_service_databricks_course_ws_properties_typeProperties_existingClusterId')]"
+					},
+					"linkedservice_formula1dl_storage_properties_typeProperties_url": {
+						"value": "[parameters('linkedservice_formula1dl_storage_properties_typeProperties_url')]"
+					},
+					"trigger_process_formula1_data_properties_pipeline_parameters_p_window_end_date": {
+						"value": "[parameters('trigger_process_formula1_data_properties_pipeline_parameters_p_window_end_date')]"
 					}
 				}
 			},
